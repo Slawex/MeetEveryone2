@@ -78,7 +78,8 @@ public class FriendsEdition extends Activity {
 				
 		 		if (Integer.parseInt(cur.getString(cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0){
 		 			String num = findNumber(id, name);
-		 			Contact newContact = new Contact(name, num);
+		 			//Contact newContact = new Contact(name, num);
+		 			Contact newContact = new Contact(name);
 
 		 			if(!fullContacts.contains(newContact)){
 			 			fullContacts.add(newContact);
