@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <CheckBox
+        android:id="@+id/visibilityFriendsCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/visibility_friends" />
+
+    <CheckBox
+        android:id="@+id/visibilityAllCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/visibilityFriendsCheckBox"
+        android:layout_below="@+id/visibilityFriendsCheckBox"
+        android:text="@string/visibility_all" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/visibilityAllCheckBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/trackingRadioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gps" />
+
+        <RadioButton
+            android:id="@+id/trackingRadioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gsm" />
+
+        <RadioButton
+            android:id="@+id/trackingRadioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gps_gsm" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/trackingMethodTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/visibilityAllCheckBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp"
+        android:text="@string/trackingChoice" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/trackingMethodTextView"
+        android:layout_below="@+id/radioGroup1"
+        android:layout_marginTop="40dp"
+        android:text="Current tags:" />
+
+    <CheckBox
+        android:id="@+id/CheckBox01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/radioGroup1"
+        android:layout_below="@+id/radioGroup1"
+        android:text="Meet new people" />
+
+    <Button
+        android:id="@+id/saveSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Save settings" />
+
+</RelativeLayout>

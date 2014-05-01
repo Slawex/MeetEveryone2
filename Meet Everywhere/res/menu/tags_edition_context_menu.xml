@@ -1,0 +1,5 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/checkTag" android:title="Zaznacz/Odznacz"></item>
+    <item android:id="@+id/deleteTag" android:title="Skasuj" android:checkable="false"></item>
+    <item android:id="@+id/editTag" android:title="Modyfikuj"></item>
+</menu>

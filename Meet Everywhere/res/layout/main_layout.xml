@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <ImageView
+        android:id="@+id/userImage"
+        android:layout_width="fill_parent"
+        android:layout_height="220dp"
+        android:layout_above="@+id/userDescription"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/sym_def_app_icon" />
+    
+    <TextView
+        android:id="@+id/userDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:lines="4"
+        android:singleLine="false"
+        android:text="@string/initialUserDiscription" />
+    
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/tagListsEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edytuj listę tagów opisujących Cię" />
+
+        <Button
+            android:id="@+id/searchTagListsEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edytuj listę poszukiwanych tagów" />
+                
+        <Button
+            android:id="@+id/friendsListEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edytuj listę przyjaciół" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/minimizeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/minimize" />
+
+            <Button
+                android:id="@+id/closeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/close" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

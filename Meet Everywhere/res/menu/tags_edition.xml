@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/addTag" android:title="Dodaj"></item>
+    <item android:id="@+id/save" android:title="Save"></item>
+    <item android:id="@+id/deleteAll" android:title="Delete All"></item>
+    <item android:id="@+id/cancel" android:title="Discard &amp; Exit"></item>
+    <item android:id="@+id/copy" android:title="Copy from second list"></item>
+</menu>

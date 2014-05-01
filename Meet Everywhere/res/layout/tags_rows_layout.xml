@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+	    <TextView
+	        android:id="@+id/label"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@+id/label"
+	        android:textSize="30px" />
+
+	    <EditText
+	        android:id="@+id/editText1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:hint="Wpisz nazwę tagu"
+	        android:visibility="gone" >
+
+	    </EditText>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:text="Save"
+            android:visibility="gone" />
+
+	    <CheckBox
+	        android:id="@+id/check"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:focusable="false" />
+	    	    
+    </LinearLayout>
+
+</RelativeLayout> 

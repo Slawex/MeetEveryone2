@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">Meet Everywhere</string><string name="visibility_all">Visible For Others</string><string name="visibility_friends">Visible for friends</string><string name="close">Close</string><string name="minimize">Hide</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_meet_everywhere">Meet Everywhere!</string>
+    <string name="gps">GPS Sensor</string>
+    <string name="gsm">GSM Base Stations</string>
+    <string name="gps_gsm">Both</string>
+    <string name="trackingChoice">Tracking Method:</string>
+    <string name="initialUserDiscription">Put your discription here</string>
+
+</resources>
