@@ -30,24 +30,18 @@ public class MeetEverywhere extends Activity {
 	//dodaæ przy pierwszej konfiguracji zapytanie czy numer telefonu jest poprawny (zaznaczyæ, ¿e podanie nieprawdziwego numeru spowoduje, ¿e nikt znajomy go niw wykryje) 
 	//nastepnie poprawic ten system tak zeby autoryzacja byla przez sms
 	
+	
+	/*
+	 * TODO : Stworzyæ Service, które bêdzie cyklicznie sprawdzaæ czy tagi przechowywane lokalnie
+	 * s¹ zsynchronizowane z serwerem.
+	 */
+	
 	private final String gcmId = "719842226591";
 	private final String userName = "meuser";
 	private final String password = "mepassword";
 	
 	private SharedPreferences userSettings;
 	private ImageView userImage;
-	
-	private void registerGCM(){
-		GCMRegistrar.checkDevice(this);
-		GCMRegistrar.checkManifest(this);
-		final String regId = GCMRegistrar.getRegistrationId(this);
-		if (regId.equals("")) {
-		  GCMRegistrar.register(this, gcmId);
-		} else {
-		  System.out.println("Already registered, id: " + regId);
-		  new InternetHelper().execute("gcmID", "id=1&gcmID=" + regId);
-		}
-	}
 	
 	private boolean isTrackingServiceRunning() {
 	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -74,8 +68,7 @@ public class MeetEverywhere extends Activity {
 		    }
 		});
         
-        registerGCM();
-        
+       
         ((Button)findViewById(R.id.minimizeButton)).setOnClickListener(new OnClickListener() {
 	        //@Override
 	        public void onClick(View arg0) {
@@ -87,7 +80,9 @@ public class MeetEverywhere extends Activity {
 	        //@Override
 	        public void onClick(View arg0) {
 	            stopService(new Intent(MeetEverywhere.this, PositionTracker.class));
-	            finish();
+	            
+	            System.exit(0);
+	            finish();	       
 	        }
 	    });
         
@@ -132,7 +127,7 @@ public class MeetEverywhere extends Activity {
         if(!isTrackingServiceRunning())
         	startService(new Intent(MeetEverywhere.this, PositionTracker.class));
         
-        new InternetHelper().execute("userPosition", "id=1&x=0&y=0");
+        new DAO().execute("userPosition", "id=1&x=0&y=0");
     }
 
     @Override
@@ -161,7 +156,6 @@ public class MeetEverywhere extends Activity {
     	
 		@Override
 		protected void onPostExecute(Bitmap param){
-			//userImage.setImageURI(params[0]);
 			if(param != null)
 				userImage.setImageBitmap(param);
 		}

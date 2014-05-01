@@ -17,14 +17,18 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
+/**
+ * Klasa s³u¿¹ca do wykreowania listy znalezionych kontaktów (jako ArrayAdapter).
+ * Rozwa¿yæ zmianê -> zwyk³y listview + listenery zamiast adaptera.
+ */
+public class InteractiveArrayAdapter extends ArrayAdapter<Contact> {
 
-  private final List<Model> list;
+  private final List<Contact> list;
   private final Activity context;
   private final InputMethodManager imm;
-  private List<Model> listenersMap = new ArrayList<Model>();
+  private List<Contact> listenersMap = new ArrayList<Contact>();
   
-  public InteractiveArrayAdapter(Activity context, List<Model> list, InputMethodManager imm) {
+  public InteractiveArrayAdapter(Activity context, List<Contact> list, InputMethodManager imm) {
     super(context, R.layout.tags_rows_layout, list);
     this.context = context;
     this.list = list;
@@ -53,9 +57,9 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
             //@Override
             public void onCheckedChanged(CompoundButton buttonView,
                 boolean isChecked) {
-              Model element = (Model) viewHolder.checkbox
+              Contact element = (Contact) viewHolder.checkbox
                   .getTag();
-              element.setSelected(buttonView.isChecked());
+   //           element.setSelected(buttonView.isChecked());
 
             }
           });
@@ -68,13 +72,12 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
       view = convertView;
     }
     
-    Model element = list.get(position);
+    Contact element = list.get(position);
     ViewHolder holder = (ViewHolder) view.getTag();
     holder.checkbox.setTag(element);
     holder.text.setText(element.getName());
-    holder.checkbox.setChecked(element.isSelected());
+
     
-	holder.tmpText.setText(element.getTmpText());
 	int pos = listenersMap.size();
 	holder.tmpText.setId(pos);
 	holder.saveButton.setId(pos);
@@ -85,11 +88,11 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
 		public void onFocusChange(View v, boolean hasFocus) {
 			if (!hasFocus){
 				final int position = v.getId();
-				listenersMap.get(position).setTmpText(((EditText) v).getText().toString());
+	//			listenersMap.get(position).setTmpText(((EditText) v).getText().toString());
 			}
 		}
 	});
-	
+	/*
 	if(element.isInEdition()){
 		holder.text.setVisibility(View.GONE);
 		holder.tmpText.setVisibility(View.VISIBLE);
@@ -99,19 +102,20 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
 		holder.saveButton.setOnClickListener(new OnClickListener() {
 	        //@Override
 	        public void onClick(View arg0) {
-        		Model element = listenersMap.get(arg0.getId());
-        		element.setStatus(Model.Status.EDITED);
+        		Contact element = listenersMap.get(arg0.getId());
+        		element.setStatus(Contact.Status.EDITED);
 	        	imm.hideSoftInputFromWindow(element.getToken(), 0);
 	        	notifyDataSetChanged();
 	        }
 	    });
 		
+		
 		holder.saveButton.setOnFocusChangeListener (new OnFocusChangeListener() {
 	        //@Override
 	        public void onFocusChange(View arg0, boolean hasFocus) {
 	        	if(hasFocus){
-	        		Model element = listenersMap.get(arg0.getId());
-	        		element.setStatus(Model.Status.EDITED);
+	        		Contact element = listenersMap.get(arg0.getId());
+	        		element.setStatus(Contact.Status.EDITED);
 		        	imm.hideSoftInputFromWindow(element.getToken(), 0);
 		        	notifyDataSetChanged();
 	        	}
@@ -128,7 +132,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
 		holder.tmpText.setVisibility(View.GONE);
 		holder.saveButton.setVisibility(View.GONE);
 	}
-	
+	*/
     return view;
   }
 } 

@@ -23,19 +23,20 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.view.inputmethod.InputMethodManager;
 
+/**
+ *
+ */
 public class TagsEdition extends Activity {
 
 	private ListView tagListView;
-	private List<Model> tags = new ArrayList<Model>();
-	private List<Model> deletedTags = new ArrayList<Model>();
-	private ArrayAdapter<Model> listAdapter;
-	//private List<String> tags = new ArrayList<String>();
-	//private ArrayAdapter<String> listAdapter;
+	private List<Contact> tags = new ArrayList<Contact>();
+	private List<Contact> deletedTags = new ArrayList<Contact>();
+	private ArrayAdapter<Contact> listAdapter;
 	
 	private DatabaseAdapter myDBAdapter;
 	
-	private List<Model> getTagsFromDatabase() {
-		List<Model> list = new ArrayList<Model>();
+	private List<Contact> getTagsFromDatabase() {
+		List<Contact> list = new ArrayList<Contact>();
 		
 		Cursor dbCursor = myDBAdapter.getAllTags(DatabaseAdapter.TagType.USER);
 		startManagingCursor(dbCursor);
@@ -47,7 +48,7 @@ public class TagsEdition extends Activity {
 				String tag = dbCursor.getString(myDBAdapter.TAG_COLUMN);
 				int checkedInt = dbCursor.getInt(myDBAdapter.ACTIVE_TAG_COLUMN);
 				
-				list.add(new Model(id, tag, checkedInt != 0, Model.Status.SAVED, false));
+//				list.add(new Contact(id, tag, checkedInt != 0, Contact.Status.SAVED, false));
 		   } while (dbCursor.moveToNext());
 		  }
 		
@@ -104,12 +105,12 @@ public class TagsEdition extends Activity {
     public void onBackPressed() {
     	boolean showDialog = false;
     	
-    	for(Model tag: tags)
-    		if(tag.isEdited()){
+    	for(Contact tag: tags)
+/*    		if(tag.isEdited()){
     			showDialog = true;
     			break;
     		}
-
+*/
     	if(!deletedTags.isEmpty())
     		showDialog = true;
     	
@@ -137,16 +138,16 @@ public class TagsEdition extends Activity {
     }
     
 	private void saveAndExit(){
-    	for(Model tag: tags)
-    		if(tag.isEdited())
+    	for(Contact tag: tags)
+/*    		if(tag.isEdited())
     			if(tag.getId() == -1)
     				myDBAdapter.insertTag(tag.getName(), tag.isSelected(), DatabaseAdapter.TagType.USER);
     			else
     				myDBAdapter.updateTag(tag.getId(), tag.getName(), tag.isSelected(), DatabaseAdapter.TagType.USER);
 
-    	for(Model tag: deletedTags)
+    	for(Contact tag: deletedTags)
     		myDBAdapter.deleteTag(tag.getId(), DatabaseAdapter.TagType.USER);
-    	
+ */   	
     	finish();
 	}
 	
@@ -154,7 +155,7 @@ public class TagsEdition extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.addTag:
-        	tags.add(new Model());
+//        	tags.add(new Contact());
         	listAdapter.notifyDataSetChanged();
             break;
         case R.id.save:
@@ -164,15 +165,15 @@ public class TagsEdition extends Activity {
         	finish();
         	break;
         case R.id.deleteAll:
-        	for(Model tag: tags)
-        		if(tag.getId() != -1)
+        	for(Contact tag: tags)
+/*        		if(tag.getId() != -1)
         			deletedTags.add(tag);
-            	
+*/            	
         	tags.clear();
         	listAdapter.notifyDataSetChanged();
         	break;
         case R.id.copy:
-        	List<Model> list = new ArrayList<Model>();
+        	List<Contact> list = new ArrayList<Contact>();
         	
     		Cursor dbCursor = myDBAdapter.getAllTags(DatabaseAdapter.TagType.SEARCH);
     		startManagingCursor(dbCursor);
@@ -184,7 +185,7 @@ public class TagsEdition extends Activity {
     				String tag = dbCursor.getString(myDBAdapter.TAG_COLUMN);
     				int checkedInt = dbCursor.getInt(myDBAdapter.ACTIVE_TAG_COLUMN);
     				
-    				list.add(new Model(-1, tag, checkedInt != 0, Model.Status.EDITED, false));
+    				list.add(new Contact(tag));
     		   } while (dbCursor.moveToNext());
     		  }
         	
@@ -200,23 +201,23 @@ public class TagsEdition extends Activity {
     
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-    	Model element = tags.get(((AdapterContextMenuInfo)item.getMenuInfo()).position);
+    	Contact element = tags.get(((AdapterContextMenuInfo)item.getMenuInfo()).position);
     	
         switch (item.getItemId()) {
         case R.id.checkTag:
-        	element.setSelected(!element.isSelected());
+ //       	element.setSelected(!element.isSelected());
             break;
             
         case R.id.deleteTag:
-        	if(element.getId() != -1)
+/*        	if(element.getId() != -1)
         		deletedTags.add(element);
-        	tags.remove(element);
+*/        	tags.remove(element);
             break;
             
         case R.id.editTag:
-        	element.setStatus(Model.Status.IN_EDITION);
+/*        	element.setStatus(Contact.Status.IN_EDITION);
         	element.setGiveFocus(true);
-            break;
+ */           break;
             
         default:
             break;

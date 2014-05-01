@@ -8,8 +8,19 @@ import java.net.URL;
 
 import android.os.AsyncTask;
 
-public class InternetHelper extends AsyncTask<String, Object, Object>{
 
+/**
+ * Klasa stanowi Data Access Object do komunikacji z serwerem.
+ * 
+ * Prawdopodobnie nie bêdzie ona dziedziczyæ po AsyncTask.
+ *
+ */
+public class DAO extends AsyncTask<String, Object, Object>{
+
+	
+	
+	
+/*
 	private static int timeout = 5000;
 	
 	public void connectGet(String method, String params){
@@ -42,10 +53,17 @@ public class InternetHelper extends AsyncTask<String, Object, Object>{
 		    System.out.println("Error for " + method + ", params " + params + ": " + e);
 		}
 	}
+*/
+	
+	public void updateLocationOnServer(double latitude, double longtitude){
+		
+	}
+	
+	
 	
 	@Override
 	protected Object doInBackground(String... params) {
-		connectGet(params[0], params[1]);
+//		connectGet(params[0], params[1]);
 		return null;
 	}
 	

@@ -24,16 +24,14 @@ import android.view.inputmethod.InputMethodManager;
 public class SearchTagsEdition extends Activity {
 
 	private ListView tagListView;
-	private List<Model> tags = new ArrayList<Model>();
-	private List<Model> deletedTags = new ArrayList<Model>();
-	private ArrayAdapter<Model> listAdapter;
-	//private List<String> tags = new ArrayList<String>();
-	//private ArrayAdapter<String> listAdapter;
+	private List<Contact> tags = new ArrayList<Contact>();
+	private List<Contact> deletedTags = new ArrayList<Contact>();
+	private ArrayAdapter<Contact> listAdapter;
 	
 	private DatabaseAdapter myDBAdapter;
 	
-	private List<Model> getTagsFromDatabase() {
-		List<Model> list = new ArrayList<Model>();
+	private List<Contact> getTagsFromDatabase() {
+		List<Contact> list = new ArrayList<Contact>();
 		
 		Cursor dbCursor = myDBAdapter.getAllTags(DatabaseAdapter.TagType.SEARCH);
 		startManagingCursor(dbCursor);
@@ -45,7 +43,7 @@ public class SearchTagsEdition extends Activity {
 				String tag = dbCursor.getString(myDBAdapter.TAG_COLUMN);
 				int checkedInt = dbCursor.getInt(myDBAdapter.ACTIVE_TAG_COLUMN);
 				
-				list.add(new Model(id, tag, checkedInt != 0, Model.Status.SAVED, false));
+//				list.add(new Contact(id, tag, checkedInt != 0, Contact.Status.SAVED, false));
 		   } while (dbCursor.moveToNext());
 		  }
 		
@@ -63,18 +61,9 @@ public class SearchTagsEdition extends Activity {
         tagListView = (ListView)findViewById(R.id.tagsListView);
         tags = getTagsFromDatabase();
         listAdapter = new InteractiveArrayAdapter(this, tags, (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE));
-        //listAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, tags);
-        tagListView.setAdapter(listAdapter);
-        
-        /*tagListView.setOnItemClickListener(new OnItemClickListener() {
 
-            //@Override
-            public void onItemClick(AdapterView<?> arg0, View view, int position,
-                    long id) {
-            	view.findViewById(R.id.editText1).requestFocusFromTouch();
-            	view.findViewById(R.id.editText1).requestFocus();
-            }
-        });*/
+        tagListView.setAdapter(listAdapter);
+
         
         registerForContextMenu(tagListView);
     }
@@ -107,35 +96,35 @@ public class SearchTagsEdition extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.addTag:
-        	tags.add(new Model());
+//        	tags.add(new Contact());
         	listAdapter.notifyDataSetChanged();
             break;
         case R.id.save:
-        	for(Model tag: tags)
-        		if(tag.isEdited())
+        	for(Contact tag: tags)
+/*        		if(tag.isEdited())
         			if(tag.getId() == -1)
         				myDBAdapter.insertTag(tag.getName(), tag.isSelected(), DatabaseAdapter.TagType.SEARCH);
         			else
         				myDBAdapter.updateTag(tag.getId(), tag.getName(), tag.isSelected(), DatabaseAdapter.TagType.SEARCH);
-
-        	for(Model tag: deletedTags)
+*/
+/*        	for(Contact tag: deletedTags)
         		myDBAdapter.deleteTag(tag.getId(), DatabaseAdapter.TagType.SEARCH);
-        	
+*/        	
         	finish();
         	break;
         case R.id.cancel:
         	finish();
         	break;
         case R.id.deleteAll:
-        	for(Model tag: tags)
-        		if(tag.getId() != -1)
+        	for(Contact tag: tags)
+/*        		if(tag.getId() != -1)
         			deletedTags.add(tag);
-            	
+*/            	
         	tags.clear();
         	listAdapter.notifyDataSetChanged();
         	break;
         case R.id.copy:
-        	List<Model> list = new ArrayList<Model>();
+        	List<Contact> list = new ArrayList<Contact>();
         	
     		Cursor dbCursor = myDBAdapter.getAllTags(DatabaseAdapter.TagType.USER);
     		startManagingCursor(dbCursor);
@@ -147,7 +136,7 @@ public class SearchTagsEdition extends Activity {
     				String tag = dbCursor.getString(myDBAdapter.TAG_COLUMN);
     				int checkedInt = dbCursor.getInt(myDBAdapter.ACTIVE_TAG_COLUMN);
     				
-    				list.add(new Model(-1, tag, checkedInt != 0, Model.Status.EDITED, false));
+//    				list.add(new Contact(-1, tag, checkedInt != 0, Contact.Status.EDITED, false));
     		   } while (dbCursor.moveToNext());
     		  }
         	
@@ -163,23 +152,23 @@ public class SearchTagsEdition extends Activity {
     
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-    	Model element = tags.get(((AdapterContextMenuInfo)item.getMenuInfo()).position);
+    	Contact element = tags.get(((AdapterContextMenuInfo)item.getMenuInfo()).position);
     	
         switch (item.getItemId()) {
         case R.id.checkTag:
-        	element.setSelected(!element.isSelected());
+//        	element.setSelected(!element.isSelected());
             break;
             
         case R.id.deleteTag:
-        	if(element.getId() != -1)
+/*        	if(element.getId() != -1)
         		deletedTags.add(element);
         	tags.remove(element);
-            break;
+*/            break;
             
         case R.id.editTag:
-        	element.setStatus(Model.Status.IN_EDITION);
+/*        	element.setStatus(Contact.Status.IN_EDITION);
         	element.setGiveFocus(true);
-            break;
+*/            break;
             
         default:
             break;

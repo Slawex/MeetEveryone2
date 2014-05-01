@@ -7,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
+/**
+ * 
+ * Klasa, która bêdzie zbêdna, zostawiam j¹ jako wzór dla metod DAO w przysz³oœci.
+ *
+ */
 public class DatabaseAdapter {
 
 	public enum TagType{USER, SEARCH};

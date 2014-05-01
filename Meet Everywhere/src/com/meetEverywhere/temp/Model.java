@@ -1,10 +1,10 @@
-package com.meetEverywhere;
+package com.meetEverywhere.temp;
 
 import android.os.IBinder;
 
 public class Model {
 
-	  public static enum Status{SAVED, IN_EDITION, EDITED};
+	public static enum Status{SAVED, IN_EDITION, EDITED};
 	
 	  private String name;
 	  private boolean selected;
