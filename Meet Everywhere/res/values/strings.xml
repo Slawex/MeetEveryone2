@@ -18,6 +18,13 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_profile_details">ProfileDetails</string>
     
+    <string name="tags_edition_text">Wpisz tagi oddzielone przecinkiem</string>
+    <string name="tag_add_text">Add</string>
+    <string name="tag_cancel_text">Back</string>
+    <string name="tag_save_text">Save</string>
+    <string name="error_tags_required">This field is required</string>
+    <string name="tag_delete_text">Delete</string>
+    
    	<!-- ************************************************************************************************* -->
     <!-- ************************************* Common strings *************************************** -->
     <!-- ************************************************************************************************* -->

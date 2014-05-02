@@ -4,11 +4,6 @@ import java.io.FileNotFoundException;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
-import com.google.android.gcm.GCMRegistrar;
-
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -17,6 +12,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.View.OnClickListener;
