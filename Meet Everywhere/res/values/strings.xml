@@ -16,5 +16,10 @@
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="tags_edition_text">Wpisz tagi oddzielone przecinkiem</string>
+    <string name="tag_add_text">Add</string>
+    <string name="tag_cancel_text">Back</string>
+    <string name="tag_save_text">Save</string>
+    <string name="error_tags_required">This field is required</string>
 
 </resources>

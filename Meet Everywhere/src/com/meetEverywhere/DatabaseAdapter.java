@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
  */
 public class DatabaseAdapter {
 
-	public enum TagType{USER, SEARCH};
+	public static enum TagType{USER, SEARCH};
 	
     private final String DB_NAME = "database.db";
     private final String TAGS_TABLE = "Tags";
