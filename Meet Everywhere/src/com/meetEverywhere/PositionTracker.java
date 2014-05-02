@@ -17,15 +17,17 @@ import android.widget.Toast;
 /*
  * Klasa s³u¿¹ca do monitorowania w tle wspó³rzêdnych GPS.
  * 
- * Prawdopodobnie nie wymaga poprawek poza dodaniem wywolania 
- * update'u pozycji na serwerze (przez DAO).
- * */
+ * Klasa jest kompletna i przetestowana.
+ * Pod koniec projektu trzeba bêdzie wywaliæ powiadomienia w formacie Toast.
+ * 
+ */
 public class PositionTracker extends Service {
 
-	private final long serverUpdatePeriod = 30 * 1000;
-	private final long minUpdateTime = 5 * 1000;
-	private final float minUpdateDistance = 50;
-	private final DAO dao;
+	private final long ONE_SECOND_FACTOR = 1000;
+	private final long serverUpdatePeriod = 30 * ONE_SECOND_FACTOR;
+	private final long minUpdateTime = 5 * ONE_SECOND_FACTOR;
+	private final float updateDistance = 10;
+	private DAO dao;
 
 	private LocationManager locationManager;
 	private Location lastGPSLocation = null;
@@ -33,10 +35,14 @@ public class PositionTracker extends Service {
 
 	private Toast info;
 
-	public PositionTracker(DAO dao){
+	public PositionTracker() {
+		this.dao = new DAO();
+	}
+
+	public void setDao(DAO dao) {
 		this.dao = dao;
 	}
-	
+
 	private LocationListener locationListener = new LocationListener() {
 
 		public void onProviderEnabled(String arg0) {
@@ -49,7 +55,7 @@ public class PositionTracker extends Service {
 
 		public void onLocationChanged(Location location) {
 			lastGPSLocation = location;
-			updateLocationInfoOnServer();
+			updateLocationInfoOnServer("GPS handler.");
 		}
 
 		public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -59,11 +65,11 @@ public class PositionTracker extends Service {
 	};
 
 	private Timer updatingTimer;
-	private TimerTask infoTask = new TimerTask() {
-		
+	private TimerTask updateTask = new TimerTask() {
+
 		@Override
 		public void run() {
-			updateLocationInfoOnServer();
+			updateLocationInfoOnServer("updateTask.");
 		}
 	};
 
@@ -95,9 +101,9 @@ public class PositionTracker extends Service {
 		lastGPSLocation = locationManager
 				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-				minUpdateTime, minUpdateDistance, locationListener);
+				minUpdateTime, updateDistance, locationListener);
 
-		updatingTimer.scheduleAtFixedRate(infoTask, 0, serverUpdatePeriod);
+		updatingTimer.scheduleAtFixedRate(updateTask, 0, serverUpdatePeriod);
 	}
 
 	@Override
@@ -117,31 +123,36 @@ public class PositionTracker extends Service {
 		return null;
 	}
 
-	private void updateLocationInfoOnServer() {
+	private void updateLocationInfoOnServer(String sender) {
 		double latitude;
 		double longtitude;
 		if (isGPSOn && lastGPSLocation != null) {
+
 			latitude = lastGPSLocation.getLatitude();
 			longtitude = lastGPSLocation.getLongitude();
-			info.setText("GPS " + latitude + " x "
-					+ longtitude);
-			info.show();
-			dao.updateLocationOnServer(latitude, longtitude);			
+			showToast("GPS: " + latitude + " x " + longtitude
+					+ " wywo³anie: " + sender);
+			dao.updateLocationOnServer(latitude, longtitude, true);
+
 		} else {
 			Location l = locationManager
 					.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 			if (l != null) {
+
 				latitude = l.getLatitude();
 				longtitude = l.getLongitude();
-				info.setText("Network " + latitude + " "
-						+ longtitude);
-				info.show();
-				dao.updateLocationOnServer(latitude, longtitude);
+				showToast("Sieæ: " + latitude + " " + longtitude
+						+ " wywo³anie: " + sender);
+				dao.updateLocationOnServer(latitude, longtitude, false);
+
 			} else {
-				info.setText("No location info");
-				info.show();
+				showToast("Aktualna pozycja nieznana. Wywo³anie: " + sender);
 			}
 		}
 	}
-
+	
+	public void showToast(String text){
+		info.setText(text);
+		info.show();
+	}
 }
