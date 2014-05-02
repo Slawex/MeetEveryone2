@@ -1,45 +1,69 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <ImageView
-        android:id="@+id/userImage"
-        android:layout_width="fill_parent"
-        android:layout_height="220dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitCenter"
-        android:src="@android:drawable/sym_def_app_icon" />
-
-        <EditText
-            android:id="@+id/userDescriptionEdition"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/userImage"
-            android:ems="10"
-            android:hint="@string/initialUserDiscription" >
-
-            <requestFocus />
-        </EditText>
-
-        <Button
-            android:id="@+id/saveUserSettingsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/userDescriptionEdition"
-            android:text="Save settings" />
-
-        <Button
-            android:id="@+id/cancelUserSettingsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/saveUserSettingsButton"
-            android:text="Cancel" />
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
     
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher" />
+
+            <EditText
+                android:id="@+id/ActivityRegistration_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text="@string/user_name" />
+
+        </LinearLayout>
+	
+	        <EditText
+	            android:id="@+id/userDescriptionEdition"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/userImage"
+	            android:ems="10"
+	            android:hint="@string/initialUserDiscription" >
+	
+	            <requestFocus />
+	        </EditText>
+	
+	        <Button
+	            android:id="@+id/saveUserSettingsButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/userDescriptionEdition"
+	            android:text="Save settings" />
+	
+	        <Button
+	            android:id="@+id/cancelUserSettingsButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/saveUserSettingsButton"
+	            android:text="Cancel" />
+        
+     </LinearLayout>
+    
+</ScrollView>
+
