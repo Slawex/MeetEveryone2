@@ -20,6 +20,7 @@
     <string name="tag_add_text">Add</string>
     <string name="tag_cancel_text">Back</string>
     <string name="tag_save_text">Save</string>
+    <string name="tag_delete_text">Delete</string>
     <string name="error_tags_required">This field is required</string>
 
 </resources>

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 //import android.widget.AdapterView;
 //import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.view.inputmethod.InputMethodManager;
@@ -53,16 +55,14 @@ public class SearchTagsEdition extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tags_edition_layout);
+        setContentView(R.layout.search_tags_edition_layout);
         
         myDBAdapter = new DatabaseAdapter(getApplicationContext());
         myDBAdapter.open();
         
         tagListView = (ListView)findViewById(R.id.tagsListView);
         tags = getTagsFromDatabase();
-        listAdapter = new InteractiveArrayAdapter(this, tags, (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE));
-
-        tagListView.setAdapter(listAdapter);
+        putTagsIntoList(tags);
 
         
         registerForContextMenu(tagListView);
@@ -176,6 +176,61 @@ public class SearchTagsEdition extends Activity {
         
         listAdapter.notifyDataSetChanged();
         return true;
+    }
+    
+    public void backToMainMenu(View view){
+    	finish();
+    }
+    
+    public void addTags(View view){
+    	EditText editText = (EditText) findViewById(R.id.tagsTextField);
+    	String message = editText.getText().toString();
+    	
+    	if (TextUtils.isEmpty(message)) {
+    		editText.setError(getString(R.string.error_tags_required));
+    		editText.requestFocus();
+    		return;
+    	}
+    	
+    	String [] newTags = parseInput(message);
+    	
+    	for(String tag : newTags){
+    		if(!TextUtils.isEmpty(tag) &&  !tagsListContains(tag))
+    			tags.add(new Contact(tag));
+    	}
+    	
+    	putTagsIntoList(tags);
+    }
+    
+    private void putTagsIntoList(List<Contact> tags2) {
+        listAdapter = new InteractiveArrayAdapter(this, tags2, (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE));
+        //listAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, tags);
+        tagListView.setAdapter(listAdapter);
+		
+	}
+    
+    private boolean tagsListContains(String tag) {
+		
+    	for(Contact contact : tags){
+    		if(contact.getName().equals(tag))
+    			return true;
+    	}
+    	
+		return false;
+	}
+
+	public void saveTags(View view){
+    	
+    }
+    
+    private String [] parseInput(String message){
+    	String [] tags=message.split(",");
+    	for(int i=0;i<tags.length;i++){
+    		tags[i]=tags[i].trim();
+    	}
+    	
+    	
+    	return tags;
     }
     
 }
