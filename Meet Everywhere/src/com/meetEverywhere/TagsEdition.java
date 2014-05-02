@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -65,6 +67,7 @@ public class TagsEdition extends Activity {
         myDBAdapter.open();
         
         tagListView = (ListView)findViewById(R.id.tagsListView);
+        tagListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         tags = getTagsFromDatabase();
         putTagsIntoList(tags);
         
@@ -272,7 +275,56 @@ public class TagsEdition extends Activity {
     }
     
     private String [] parseInput(String message){
-    	return message.split(",");
+    	String [] tags=message.split(",");
+    	for(int i=0;i<tags.length;i++){
+    		tags[i]=tags[i].trim();
+    	}
+    	
+    	
+    	return tags;
     }
+    
+    public void deleteTags(View view){
+    	SparseBooleanArray sparseBooleanArray = tagListView.getCheckedItemPositions();
+    	
+    	List <Contact> checkedTags = new ArrayList<Contact>();
+    	
+    	Log.v("kasowanie",""+tagListView.getCount()+" ");
+    	
+    	for(int i=0;i<tagListView.getCount();i++){
+    		Log.v("kasowanie"," "+sparseBooleanArray.get(i));
+    		if(sparseBooleanArray.get(i)){
+    			Log.v("lasowanie","dodaje do usuniecia index "+i);
+    			checkedTags.add((Contact) tagListView.getItemAtPosition(i));
+    		}
+    			
+    	}
+    	
+    	deleteTagsFromList(checkedTags);
+    }
+
+	private void deleteTagsFromList(List<Contact> checkedTags) {
+		int index=-1;
+		for(Contact tag : checkedTags){
+			for(int i=0;i<tags.size();i++){
+				if(tagsAreEqual(tag,tags.get(i))){
+					index=i;
+				}
+			}
+			Log.v("kasowanie", " kasuje index"+index);
+			if(index!=-1)
+				tags.remove(index);
+		}
+		
+		putTagsIntoList(tags);
+		
+	}
+
+	private boolean tagsAreEqual(Contact tag, Contact contact) {
+		if(tag.getName().equals(contact.getName()))
+			return true;
+		Log.v("blah", "blah blah");
+		return false;
+	}
     
 }
