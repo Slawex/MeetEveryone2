@@ -61,26 +61,18 @@ public class SearchTagsEdition extends Activity {
         myDBAdapter.open();
         
         tagListView = (ListView)findViewById(R.id.tagsListView);
+        tagListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         tags = getTagsFromDatabase();
+        //listAdapter = new MyCustomAdapter(this, R.layout.content_info,(ArrayList<Contact>) tags);
+        //listAdapter = new ArrayAdapter<Contact>(this,R.layout.content_info,tags);
+        tagListView.setAdapter(listAdapter);
         putTagsIntoList(tags);
 
         
         registerForContextMenu(tagListView);
     }
     
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tags_edition, menu);
-        return true;
-    }
-    
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.tags_edition_context_menu, menu);
-        
-        menu.setHeaderTitle("Menu title :)");
-    }
+   
     
     @Override
     protected void onDestroy() {
@@ -92,91 +84,6 @@ public class SearchTagsEdition extends Activity {
         super.onDestroy();
     }
     
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.addTag:
-//        	tags.add(new Contact());
-        	listAdapter.notifyDataSetChanged();
-            break;
-        case R.id.save:
-        	for(Contact tag: tags)
-/*        		if(tag.isEdited())
-        			if(tag.getId() == -1)
-        				myDBAdapter.insertTag(tag.getName(), tag.isSelected(), DatabaseAdapter.TagType.SEARCH);
-        			else
-        				myDBAdapter.updateTag(tag.getId(), tag.getName(), tag.isSelected(), DatabaseAdapter.TagType.SEARCH);
-*/
-/*        	for(Contact tag: deletedTags)
-        		myDBAdapter.deleteTag(tag.getId(), DatabaseAdapter.TagType.SEARCH);
-*/        	
-        	finish();
-        	break;
-        case R.id.cancel:
-        	finish();
-        	break;
-        case R.id.deleteAll:
-        	for(Contact tag: tags)
-/*        		if(tag.getId() != -1)
-        			deletedTags.add(tag);
-*/            	
-        	tags.clear();
-        	listAdapter.notifyDataSetChanged();
-        	break;
-        case R.id.copy:
-        	List<Contact> list = new ArrayList<Contact>();
-        	
-    		Cursor dbCursor = myDBAdapter.getAllTags(DatabaseAdapter.TagType.USER);
-    		startManagingCursor(dbCursor);
-    		dbCursor.requery();
-    		  
-    		if(dbCursor.moveToFirst()) {
-    			do {
-    				int id = dbCursor.getInt(myDBAdapter.ID_COLUMN);
-    				String tag = dbCursor.getString(myDBAdapter.TAG_COLUMN);
-    				int checkedInt = dbCursor.getInt(myDBAdapter.ACTIVE_TAG_COLUMN);
-    				
-//    				list.add(new Contact(-1, tag, checkedInt != 0, Contact.Status.EDITED, false));
-    		   } while (dbCursor.moveToNext());
-    		  }
-        	
-        	tags.addAll(list);
-        	listAdapter.notifyDataSetChanged();
-    		
-        	break;
-        default:
-            break;
-        }
-        return true;
-    }
-    
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-    	Contact element = tags.get(((AdapterContextMenuInfo)item.getMenuInfo()).position);
-    	
-        switch (item.getItemId()) {
-        case R.id.checkTag:
-//        	element.setSelected(!element.isSelected());
-            break;
-            
-        case R.id.deleteTag:
-/*        	if(element.getId() != -1)
-        		deletedTags.add(element);
-        	tags.remove(element);
-*/            break;
-            
-        case R.id.editTag:
-/*        	element.setStatus(Contact.Status.IN_EDITION);
-        	element.setGiveFocus(true);
-*/            break;
-            
-        default:
-            break;
-        }
-        
-        listAdapter.notifyDataSetChanged();
-        return true;
-    }
     
     public void backToMainMenu(View view){
     	finish();
@@ -203,9 +110,11 @@ public class SearchTagsEdition extends Activity {
     }
     
     private void putTagsIntoList(List<Contact> tags2) {
-        listAdapter = new InteractiveArrayAdapter(this, tags2, (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE));
-        //listAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, tags);
-        tagListView.setAdapter(listAdapter);
+        listAdapter = new MyCustomAdapter(this, R.layout.content_info,(ArrayList<Contact>) tags2);
+
+         //listAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, tags);
+         tagListView.setAdapter(listAdapter);
+         //listAdapter.notifyDataSetChanged();
 		
 	}
     
@@ -232,5 +141,17 @@ public class SearchTagsEdition extends Activity {
     	
     	return tags;
     }
+    
+    public void deleteTags(View view){
+    	List <Contact> newTags = new ArrayList<Contact>();
+    	
+    	for(Contact tag : tags){
+    		if(!tag.isChecked())
+    			newTags.add(tag);
+    	}
+    		
+    	putTagsIntoList(newTags);
+    }
+
     
 }

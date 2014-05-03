@@ -69,41 +69,26 @@ public class TagsEdition extends Activity {
         tagListView = (ListView)findViewById(R.id.tagsListView);
         tagListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         tags = getTagsFromDatabase();
+        //listAdapter = new MyCustomAdapter(this, R.layout.content_info,(ArrayList<Contact>) tags);
+        //listAdapter = new ArrayAdapter<Contact>(this,R.layout.content_info,tags);
+        tagListView.setAdapter(listAdapter);
         putTagsIntoList(tags);
         
-        /*tagListView.setOnItemClickListener(new OnItemClickListener() {
-
-            //@Override
-            public void onItemClick(AdapterView<?> arg0, View view, int position,
-                    long id) {
-            	view.findViewById(R.id.editText1).requestFocusFromTouch();
-            	view.findViewById(R.id.editText1).requestFocus();
-            }
-        });*/
+      
         
         registerForContextMenu(tagListView);
     }
     
     private void putTagsIntoList(List<Contact> tags2) {
-         listAdapter = new InteractiveArrayAdapter(this, tags2, (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE));
+        listAdapter = new MyCustomAdapter(this, R.layout.content_info,(ArrayList<Contact>) tags2);
+
          //listAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, tags);
          tagListView.setAdapter(listAdapter);
+         //listAdapter.notifyDataSetChanged();
 		
 	}
 
-	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tags_edition, menu);
-        return true;
-    }
-    
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.tags_edition_context_menu, menu);
-        
-        menu.setHeaderTitle("Menu title :)");
-    }
+	
     
     @Override
     protected void onDestroy() {
@@ -160,81 +145,6 @@ public class TagsEdition extends Activity {
     	finish();
 	}
 	
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.addTag:
-//        	tags.add(new Contact());
-        	listAdapter.notifyDataSetChanged();
-            break;
-        case R.id.save:
-        	saveAndExit();
-        	break;
-        case R.id.cancel:
-        	finish();
-        	break;
-        case R.id.deleteAll:
-        	for(Contact tag: tags)
-/*        		if(tag.getId() != -1)
-        			deletedTags.add(tag);
-*/            	
-        	tags.clear();
-        	listAdapter.notifyDataSetChanged();
-        	break;
-        case R.id.copy:
-        	List<Contact> list = new ArrayList<Contact>();
-        	
-    		Cursor dbCursor = myDBAdapter.getAllTags(DatabaseAdapter.TagType.SEARCH);
-    		startManagingCursor(dbCursor);
-    		dbCursor.requery();
-    		  
-    		if(dbCursor.moveToFirst()) {
-    			do {
-    				int id = dbCursor.getInt(myDBAdapter.ID_COLUMN);
-    				String tag = dbCursor.getString(myDBAdapter.TAG_COLUMN);
-    				int checkedInt = dbCursor.getInt(myDBAdapter.ACTIVE_TAG_COLUMN);
-    				
-    				list.add(new Contact(tag));
-    		   } while (dbCursor.moveToNext());
-    		  }
-        	
-        	tags.addAll(list);
-        	listAdapter.notifyDataSetChanged();
-    		
-        	break;
-        default:
-            break;
-        }
-        return true;
-    }
-    
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-    	Contact element = tags.get(((AdapterContextMenuInfo)item.getMenuInfo()).position);
-    	
-        switch (item.getItemId()) {
-        case R.id.checkTag:
- //       	element.setSelected(!element.isSelected());
-            break;
-            
-        case R.id.deleteTag:
-/*        	if(element.getId() != -1)
-        		deletedTags.add(element);
-*/        	tags.remove(element);
-            break;
-            
-        case R.id.editTag:
-/*        	element.setStatus(Contact.Status.IN_EDITION);
-        	element.setGiveFocus(true);
- */           break;
-            
-        default:
-            break;
-        }
-        
-        listAdapter.notifyDataSetChanged();
-        return true;
-    }
     
     public void backToMainMenu(View view){
     	finish();
@@ -285,46 +195,15 @@ public class TagsEdition extends Activity {
     }
     
     public void deleteTags(View view){
-    	SparseBooleanArray sparseBooleanArray = tagListView.getCheckedItemPositions();
+    	List <Contact> newTags = new ArrayList<Contact>();
     	
-    	List <Contact> checkedTags = new ArrayList<Contact>();
-    	
-    	Log.v("kasowanie",""+tagListView.getCount()+" ");
-    	
-    	for(int i=0;i<tagListView.getCount();i++){
-    		Log.v("kasowanie"," "+sparseBooleanArray.get(i));
-    		if(sparseBooleanArray.get(i)){
-    			Log.v("lasowanie","dodaje do usuniecia index "+i);
-    			checkedTags.add((Contact) tagListView.getItemAtPosition(i));
-    		}
-    			
+    	for(Contact tag : tags){
+    		if(!tag.isChecked())
+    			newTags.add(tag);
     	}
-    	
-    	deleteTagsFromList(checkedTags);
+    		
+    	putTagsIntoList(newTags);
     }
 
-	private void deleteTagsFromList(List<Contact> checkedTags) {
-		int index=-1;
-		for(Contact tag : checkedTags){
-			for(int i=0;i<tags.size();i++){
-				if(tagsAreEqual(tag,tags.get(i))){
-					index=i;
-				}
-			}
-			Log.v("kasowanie", " kasuje index"+index);
-			if(index!=-1)
-				tags.remove(index);
-		}
-		
-		putTagsIntoList(tags);
-		
-	}
-
-	private boolean tagsAreEqual(Contact tag, Contact contact) {
-		if(tag.getName().equals(contact.getName()))
-			return true;
-		Log.v("blah", "blah blah");
-		return false;
-	}
-    
+  
 }

@@ -27,6 +27,13 @@
         android:layout_height="wrap_content"
         android:text="@string/tag_add_text" 
         android:onClick="addTags"/>
+      
+      <Button
+        android:id="@+id/tagDeleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tag_delete_text" 
+        android:onClick="deleteTags"/>
 
     <Button
         android:id="@+id/tagSavingButton"
