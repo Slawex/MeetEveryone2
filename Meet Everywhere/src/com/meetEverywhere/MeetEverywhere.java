@@ -119,8 +119,8 @@ public class MeetEverywhere extends Activity {
         userSettings = getSharedPreferences(SharedPreferencesKeys.preferencesName, Activity.MODE_PRIVATE);
         boolean initialized = userSettings.getBoolean(SharedPreferencesKeys.initialization, false);
         
-        if(!initialized)
-        	startActivity(new Intent(MeetEverywhere.this, ProfileEdition.class));
+        //if(!initialized)
+        //	startActivity(new Intent(MeetEverywhere.this, ProfileEdition.class));
         
         if(!isTrackingServiceRunning())
         	startService(new Intent(MeetEverywhere.this, PositionTracker.class));
