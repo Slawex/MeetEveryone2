@@ -60,8 +60,7 @@ public abstract class TagsView extends Activity {
 		tags = getTagsFromDatabase();
 		// listAdapter = new MyCustomAdapter(this,
 		// R.layout.content_info,(ArrayList<Contact>) tags);
-		// listAdapter = new
-		// ArrayAdapter<Contact>(this,R.layout.content_info,tags);
+		
 		tagListView.setAdapter(listAdapter);
 		putTagsIntoList(tags);
 

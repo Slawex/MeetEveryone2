@@ -22,7 +22,7 @@ public class MyCustomAdapter extends ArrayAdapter<Contact> {
    super(context, textViewResourceId, contactList);
    this.activity=(Activity) context;
    this.countryList = new ArrayList<Contact>();
-   this.countryList.addAll(contactList);
+   this.countryList.addAll(contactList); 
   }
  
   private class ViewHolder {
