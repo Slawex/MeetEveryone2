@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MyCustomAdapter extends ArrayAdapter<Contact> {
@@ -27,13 +26,8 @@ public class MyCustomAdapter extends ArrayAdapter<Contact> {
   }
  
   private class ViewHolder {
-	   TextView code;
-	   CheckBox name;
-	   LinearLayout row;
-  }
-  
-  public void changePosition(int position){
-	  countryList.get(position).toggle();
+   TextView code;
+   CheckBox name;
   }
  
   @Override
@@ -50,11 +44,7 @@ public class MyCustomAdapter extends ArrayAdapter<Contact> {
    holder = new ViewHolder();
    holder.code = (TextView) convertView.findViewById(R.id.tag_name);
    holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
-   holder.row = (LinearLayout) convertView.findViewById(R.id.row);
    convertView.setTag(holder);
-   
-   
-  
  
     holder.name.setOnClickListener( new View.OnClickListener() { 
      public void onClick(View v) { 
@@ -68,11 +58,9 @@ public class MyCustomAdapter extends ArrayAdapter<Contact> {
     	  country.setChecked(cb.isChecked());
      } 
     }); 
-    
-    
    }
    else {
-	   holder = (ViewHolder) convertView.getTag();
+    holder = (ViewHolder) convertView.getTag();
    }
  
    if(countryList.size()>0){

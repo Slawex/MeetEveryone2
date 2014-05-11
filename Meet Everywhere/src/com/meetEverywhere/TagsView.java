@@ -9,14 +9,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 //import android.widget.AdapterView;
 //import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -67,18 +63,6 @@ public abstract class TagsView extends Activity {
 		// listAdapter = new
 		// ArrayAdapter<Contact>(this,R.layout.content_info,tags);
 		tagListView.setAdapter(listAdapter);
-		
-		tagListView.setOnItemClickListener(new OnItemClickListener() {
-			   public void onItemClick(AdapterView<?> parent, View view,
-			     int position, long id) {
-			    // When clicked, show a toast with the TextView text
-				   LinearLayout row = (LinearLayout) parent.getChildAt(position);
-				   CheckBox cb = (CheckBox) row.findViewById(R.id.checkBox1);
-				   cb.toggle();
-				   ((MyCustomAdapter) listAdapter).changePosition(position);
-			   }
-			  });
-		
 		putTagsIntoList(tags);
 
 		registerForContextMenu(tagListView);
