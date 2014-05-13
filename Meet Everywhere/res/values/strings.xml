@@ -33,6 +33,8 @@
     <string name="put_your_name_hint">Put your name</string>
     <string name="put_your_description_hint">Write your description (optional)</string>
     
+    <string name="ActivityLogin.login">Login</string>
+    
     <!-- ************************************************************************************************* -->
     <!-- ************************************* Profile Edition *************************************** -->
     <!-- ************************************************************************************************* -->
@@ -44,6 +46,8 @@
     <!-- ************************************************************************************************* -->
     <!-- ************************************* User Registration *************************************** -->
     <!-- ************************************************************************************************* -->
-    
+    <string name="attach_picture">Attach picture</string>
+    <string name="UserRegistration.put_picture_label">Choose your profile picture (optional)</string>
+    <string name="UserRegistration.register">Register</string>
 
 </resources>

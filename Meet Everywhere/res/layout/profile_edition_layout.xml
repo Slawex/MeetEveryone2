@@ -18,18 +18,34 @@
             android:layout_height="wrap_content" >
 
             <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/ActivityRegistration_profilePicture"
+                android:layout_width="80dp"
+                android:layout_height="120dp"
                 android:src="@drawable/ic_launcher" />
 
-            <EditText
-                android:id="@+id/ActivityRegistration_userName"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:text="@string/user_name" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center" >
+
+                <EditText
+                    android:id="@+id/ActivityRegistration_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:text="@string/user_name" />
+
+                <Button
+                    android:id="@+id/ErrorDialog_OKButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_between_items"
+                    android:layout_weight="1"
+                    android:text="@string/attach_picture" />
+
+            </LinearLayout>
 
         </LinearLayout>
 	
@@ -37,8 +53,7 @@
 	            android:id="@+id/userDescriptionEdition"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_below="@+id/userImage"
+	            android:layout_marginTop="@dimen/spacing_between_items"
 	            android:ems="10"
 	            android:hint="@string/initialUserDiscription" >
 	
@@ -49,19 +64,8 @@
 	            android:id="@+id/saveUserSettingsButton"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/userDescriptionEdition"
+	            android:layout_marginTop="@dimen/spacing_between_items"
 	            android:text="Save settings" />
-	
-	        <Button
-	            android:id="@+id/cancelUserSettingsButton"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/saveUserSettingsButton"
-	            android:text="Cancel" />
         
      </LinearLayout>
     
