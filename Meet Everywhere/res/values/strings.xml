@@ -50,4 +50,12 @@
     <string name="UserRegistration.put_picture_label">Choose your profile picture (optional)</string>
     <string name="UserRegistration.register">Register</string>
 
+    
+    <!-- ************************************************************************************************* -->
+    <!-- ************************************* Bluetooth *************************************** -->
+    <!-- ************************************************************************************************* -->
+    <string name="insert_message_text">Wpisz tekst</string>
+    <string name="insert_message_hint">Podaj treść wiadomości</string>
+    <string name="send_button">Wyślij</string>
+    
 </resources>

@@ -15,7 +15,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -54,23 +54,23 @@ public class MeetEverywhere extends Activity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	BluetoothDispatcher dispatcher = BluetoothDispatcher.getInstance();
+    	dispatcher.setHandler(new Handler(getMainLooper()));
+    	dispatcher.setTempContextHolder(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
-        
-        TelephonyManager tMgr =(TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        System.out.println(tMgr.getLine1Number());
-        
+       
 		Authenticator.setDefault (new Authenticator() {
 		    protected PasswordAuthentication getPasswordAuthentication() {
 		        return new PasswordAuthentication (userName, password.toCharArray());
 		    }
 		});
-        
-       
+
         ((Button)findViewById(R.id.minimizeButton)).setOnClickListener(new OnClickListener() {
 	        //@Override
 	        public void onClick(View arg0) {
-	            finish();
+	            //finish();
+	        	startActivity(new Intent(MeetEverywhere.this, BluetoothChooseDeviceActivity.class));
 	        }
 	    });
         
@@ -121,6 +121,9 @@ public class MeetEverywhere extends Activity {
         
         //if(!initialized)
         //	startActivity(new Intent(MeetEverywhere.this, ProfileEdition.class));
+            
+        /* Wystartuj us³ugê Bluetooth. */
+        startService(new Intent(MeetEverywhere.this, BluetoothService.class));
         
         if(!isTrackingServiceRunning())
         	startService(new Intent(MeetEverywhere.this, PositionTracker.class));

@@ -153,6 +153,6 @@ public class PositionTracker extends Service {
 	
 	public void showToast(String text){
 		info.setText(text);
-		info.show();
+	//	info.show();
 	}
 }
