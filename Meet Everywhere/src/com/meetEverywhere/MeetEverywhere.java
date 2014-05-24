@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
+import com.meetEverywhere.bluetooth.BluetoothChooseDeviceActivity;
+import com.meetEverywhere.bluetooth.BluetoothDispatcher;
+import com.meetEverywhere.bluetooth.BluetoothService;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -127,8 +131,7 @@ public class MeetEverywhere extends Activity {
         
         if(!isTrackingServiceRunning())
         	startService(new Intent(MeetEverywhere.this, PositionTracker.class));
-        
-        new DAO().execute("userPosition", "id=1&x=0&y=0");
+                
     }
 
     @Override

@@ -1,16 +1,16 @@
-package com.meetEverywhere;
+package com.meetEverywhere.bluetooth;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
 
-import android.app.Activity;
+import com.meetEverywhere.TextMessage;
+import com.meetEverywhere.User;
+
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -23,6 +23,7 @@ public class BluetoothConnection implements Runnable {
 	private final BluetoothSocket bluetoothSocket;
 	private final ObjectInputStream inputStream;
 	private final ObjectOutputStream outputStream;
+	private BluetoothConnectionStatus status;
 	private User user;
 	private Handler handler;
 	

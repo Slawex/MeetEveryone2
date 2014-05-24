@@ -1,21 +1,31 @@
-package com.meetEverywhere;
+package com.meetEverywhere.bluetooth;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 import java.util.UUID;
+
+import com.meetEverywhere.Configuration;
+import com.meetEverywhere.TextMessage;
+import com.meetEverywhere.User;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+/**
+ * Klasa BluetoothDispatcher jest g³ównym komponentem modu³u do obs³ugi
+ * Bluetooth. 
+ * Jest Singletonem, stanowi kontener na aktywne po³¹czenia, za jego
+ * pomoc¹ s¹ przekazywane wartoœci, których nie mo¿na przekazaæ u¿ywaj¹c Intent,
+ * podczas otwierania nowego Activity (pola nazwane: (...)Holder).
+ * 
+ * @author marekmagik
+ * 
+ */
 public class BluetoothDispatcher {
 
 	private static BluetoothDispatcher instance;
@@ -24,17 +34,15 @@ public class BluetoothDispatcher {
 	private BluetoothSocket tempSocketHolder;
 	private final String ownUUID = "00001101-0000-1000-8000-00805F9B34FB";
 	private final HashMap<BluetoothDevice, BluetoothConnection> connections;
+	private final HashMap<BluetoothDevice, BluetoothConnection> inactiveConnections;
 	private final BluetoothAdapter bluetoothAdapter = BluetoothAdapter
 			.getDefaultAdapter();
-	private User ownData;
+	private Configuration configuration;
 
 	private BluetoothDispatcher() {
 		connections = new HashMap<BluetoothDevice, BluetoothConnection>();
-
-		List<String> list = new ArrayList<String>();
-		list.add("pi³ka no¿na");
-		list.add("strzelectwo");
-		ownData = new User("marek" + (new Random().nextInt(100000)), list);
+		inactiveConnections = new HashMap<BluetoothDevice, BluetoothConnection>();
+		configuration = Configuration.getInstance();
 	}
 
 	public static BluetoothDispatcher getInstance() {
@@ -65,12 +73,12 @@ public class BluetoothDispatcher {
 		return connections.get(device);
 	}
 
-	public void establishConnection(Context context, BluetoothDevice device) throws IOException, ClassNotFoundException,
-			InterruptedException {
+	public void establishConnection(Context context, BluetoothDevice device)
+			throws IOException, ClassNotFoundException, InterruptedException {
 
 		BluetoothSocket socket = tempSocketHolder;
 		tempSocketHolder = null;
-		
+
 		if (socket == null) {
 			socket = device.createInsecureRfcommSocketToServiceRecord(UUID
 					.fromString(ownUUID));
@@ -84,8 +92,7 @@ public class BluetoothDispatcher {
 				+ connection.getUser().getNickname(), Toast.LENGTH_LONG);
 		toast.show();
 
-
-		addConnection(context, device, connection);	
+		addConnection(context, device, connection);
 	}
 
 	public void addConnection(Context context, BluetoothDevice device,
@@ -98,11 +105,7 @@ public class BluetoothDispatcher {
 	}
 
 	public User getOwnData() {
-		return ownData;
-	}
-
-	public void setOwnNickname(User ownData) {
-		this.ownData = ownData;
+		return configuration.getUser();
 	}
 
 	public String getUUID() {

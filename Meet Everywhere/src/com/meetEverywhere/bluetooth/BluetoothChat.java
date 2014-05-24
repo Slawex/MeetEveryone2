@@ -1,6 +1,9 @@
-package com.meetEverywhere;
+package com.meetEverywhere.bluetooth;
 
 import java.io.IOException;
+
+import com.meetEverywhere.R;
+import com.meetEverywhere.TextMessage;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;

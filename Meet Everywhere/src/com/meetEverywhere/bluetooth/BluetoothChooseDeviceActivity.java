@@ -1,4 +1,6 @@
-package com.meetEverywhere;
+package com.meetEverywhere.bluetooth;
+
+import com.meetEverywhere.R;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;

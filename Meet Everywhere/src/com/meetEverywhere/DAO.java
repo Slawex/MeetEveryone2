@@ -1,20 +1,12 @@
 package com.meetEverywhere;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import android.os.AsyncTask;
+import java.util.List;
 
 /**
  * Klasa stanowi Data Access Object do komunikacji z serwerem.
  * 
- * Prawdopodobnie nie bêdzie ona dziedziczyæ po AsyncTask.
- * 
  */
-public class DAO extends AsyncTask<String, Object, Object> {
+public class DAO {
 
 
 	/*
@@ -43,19 +35,11 @@ public class DAO extends AsyncTask<String, Object, Object> {
 
 	public synchronized void updateLocationOnServer(double latitude,
 			double longtitude, boolean isPositionFromGPS) {
-		
-
+		// TODO
 	}
-
 	
-	@Override
-	protected Object doInBackground(String... params) {
-		// connectGet(params[0], params[1]);
-		return null;
+	public synchronized void updateMyHashtags(List<String> hashtags){
+		// TODO
 	}
-
-	@Override
-	protected void onPostExecute(Object param) {
-
-	}
+	
 }

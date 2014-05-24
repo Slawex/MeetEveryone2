@@ -1,20 +1,17 @@
-package com.meetEverywhere;
+package com.meetEverywhere.bluetooth;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.UUID;
+
 
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Parcelable;
-import android.view.ViewDebug.FlagToString;
 import android.widget.Toast;
 
 public class BluetoothService extends Service implements Runnable {
@@ -86,10 +83,8 @@ public class BluetoothService extends Service implements Runnable {
 				while ((socket = serverSocket.accept()) != null) {
 /*
 					BluetoothConnection connection = new BluetoothConnection(this, socket);
-
 					dispatcher.addConnection(getApplicationContext(),
 							socket.getRemoteDevice(), connection);
-
 					showToast("Nawi¹zano po³¹czenie z: "
 							+ connection.getUser().getNickname());
 */

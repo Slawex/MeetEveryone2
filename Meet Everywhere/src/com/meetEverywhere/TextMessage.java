@@ -2,6 +2,8 @@ package com.meetEverywhere;
 
 import java.io.Serializable;
 
+import com.meetEverywhere.bluetooth.BluetoothDispatcher;
+
 public class TextMessage implements Serializable{
 
 	private static final long serialVersionUID = 2922796847639314334L;
