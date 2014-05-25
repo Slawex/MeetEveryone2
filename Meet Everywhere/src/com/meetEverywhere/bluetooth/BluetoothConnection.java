@@ -8,6 +8,7 @@ import java.io.OptionalDataException;
 import com.meetEverywhere.TextMessage;
 import com.meetEverywhere.User;
 
+import com.meetEverywhere.R;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.Handler;
@@ -30,7 +31,7 @@ public class BluetoothConnection implements Runnable {
 	public BluetoothConnection(Context context, BluetoothSocket socket)
 			throws IOException, ClassNotFoundException, InterruptedException {
 		messagesAdapter = new ArrayAdapter<TextMessage>(context,
-				android.R.layout.simple_list_item_1);
+				R.layout.bluetooth_array_adapter);
 		bluetoothSocket = socket;
 
 		outputStream = new ObjectOutputStream(socket.getOutputStream());

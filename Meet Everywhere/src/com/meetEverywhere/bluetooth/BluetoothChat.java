@@ -55,17 +55,15 @@ public class BluetoothChat extends Activity {
 					TextMessage message = new TextMessage(messageText, dispatcher.getOwnData().getNickname());
 					try {
 						actualConnection.addMessage(message);
+						text.setText("");
 					} catch (IOException e) {
 						Toast.makeText(getBaseContext(), "Wiadomoœæ nie zosta³a wys³ana!", Toast.LENGTH_SHORT).show();
-					}
+					}				
 				}
 			}
 		});
 
 	}
 
-	public void sendMessage(View v) {
-
-	}
 
 }

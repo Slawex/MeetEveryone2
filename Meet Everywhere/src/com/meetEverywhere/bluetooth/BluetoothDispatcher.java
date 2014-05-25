@@ -1,7 +1,10 @@
 package com.meetEverywhere.bluetooth;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.UUID;
 
 import com.meetEverywhere.Configuration;
@@ -33,14 +36,15 @@ public class BluetoothDispatcher {
 	private Context tempContextHolder;
 	private BluetoothSocket tempSocketHolder;
 	private final String ownUUID = "00001101-0000-1000-8000-00805F9B34FB";
-	private final HashMap<BluetoothDevice, BluetoothConnection> connections;
+	private final LinkedHashMap<BluetoothDevice, BluetoothConnection> connections;
+	private BluetoothListAdapter bluetoothListAdapter = null;
 	private final HashMap<BluetoothDevice, BluetoothConnection> inactiveConnections;
 	private final BluetoothAdapter bluetoothAdapter = BluetoothAdapter
 			.getDefaultAdapter();
 	private Configuration configuration;
 
 	private BluetoothDispatcher() {
-		connections = new HashMap<BluetoothDevice, BluetoothConnection>();
+		connections = new LinkedHashMap<BluetoothDevice, BluetoothConnection>();
 		inactiveConnections = new HashMap<BluetoothDevice, BluetoothConnection>();
 		configuration = Configuration.getInstance();
 	}
@@ -73,7 +77,7 @@ public class BluetoothDispatcher {
 		return connections.get(device);
 	}
 
-	public void establishConnection(Context context, BluetoothDevice device)
+	public BluetoothConnection establishConnection(Context context, BluetoothDevice device)
 			throws IOException, ClassNotFoundException, InterruptedException {
 
 		BluetoothSocket socket = tempSocketHolder;
@@ -93,6 +97,8 @@ public class BluetoothDispatcher {
 		toast.show();
 
 		addConnection(context, device, connection);
+		
+		return connection;
 	}
 
 	public void addConnection(Context context, BluetoothDevice device,
@@ -104,6 +110,10 @@ public class BluetoothDispatcher {
 		connections.remove(connection.getBluetoothSocket().getRemoteDevice());
 	}
 
+	public LinkedHashMap<BluetoothDevice, BluetoothConnection> getConnections(){		
+		return connections;
+	}
+	
 	public User getOwnData() {
 		return configuration.getUser();
 	}
@@ -134,6 +144,14 @@ public class BluetoothDispatcher {
 
 	public void setTempContextHolder(Context tempContextHolder) {
 		this.tempContextHolder = tempContextHolder;
+	}
+
+	public BluetoothListAdapter getBluetoothListAdapter() {
+		return bluetoothListAdapter;
+	}
+
+	public void setBluetoothListAdapter(BluetoothListAdapter bluetoothListAdapter) {
+		this.bluetoothListAdapter = bluetoothListAdapter;
 	}
 
 }

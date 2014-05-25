@@ -3,7 +3,6 @@ package com.meetEverywhere.bluetooth;
 import java.io.IOException;
 import java.util.UUID;
 
-
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -81,18 +80,36 @@ public class BluetoothService extends Service implements Runnable {
 								UUID.fromString(dispatcher.getUUID()));
 
 				while ((socket = serverSocket.accept()) != null) {
-/*
-					BluetoothConnection connection = new BluetoothConnection(this, socket);
-					dispatcher.addConnection(getApplicationContext(),
-							socket.getRemoteDevice(), connection);
-					showToast("Nawi¹zano po³¹czenie z: "
-							+ connection.getUser().getNickname());
-*/
-					Intent i = new Intent(getBaseContext(), BluetoothChat.class);
-					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					i.putExtra("device", socket.getRemoteDevice());
-					dispatcher.setTempSocketHolder(socket);
-					getApplication().startActivity(i);
+
+					final BluetoothSocket tempSocket = socket;
+					final BluetoothDispatcher tempDispatcher = dispatcher;
+					handler.post(new Runnable() {
+						public void run() {
+							BluetoothConnection connection;
+							try {
+								connection = new BluetoothConnection(
+										getApplicationContext(), tempSocket);
+								tempDispatcher.addConnection(null,
+										tempSocket.getRemoteDevice(),
+										connection);
+								if (tempDispatcher.getBluetoothListAdapter() == null) {
+									tempDispatcher
+											.setBluetoothListAdapter(new BluetoothListAdapter(
+													getApplicationContext(), 0));
+								}
+								tempDispatcher.getBluetoothListAdapter().add(
+										connection);
+								showToast("Nawi¹zano po³¹czenie z: "
+										+ connection.getUser().getNickname());
+							} catch (ClassNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					});
 
 				}
 
