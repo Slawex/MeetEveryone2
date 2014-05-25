@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/tags_view">
 
     <ListView
         android:id="@+id/tagsListView"
@@ -17,7 +18,8 @@
         android:id="@+id/tagsTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/tags_edition_text">
+        android:hint="@string/tags_edition_text"
+        android:inputType="text">
     </EditText>
     
    
@@ -39,8 +41,8 @@
         android:id="@+id/tagSavingButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tag_save_text"
-        android:onClick="saveTags"/>
+        android:text="@string/tag_search_text"
+        android:onClick="searchTags"/>
 
    
     

@@ -12,16 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class MyCustomAdapter extends ArrayAdapter<Contact> {
+public class MyCustomAdapter extends ArrayAdapter<Tag> {
  
-  private ArrayList<Contact> countryList;
+  private ArrayList<Tag> countryList;
   private Activity activity;
  
   public MyCustomAdapter(Context context, int textViewResourceId,
-    ArrayList<Contact> contactList) {
+    ArrayList<Tag> contactList) {
    super(context, textViewResourceId, contactList);
    this.activity=(Activity) context;
-   this.countryList = new ArrayList<Contact>();
+   this.countryList = new ArrayList<Tag>();
    this.countryList.addAll(contactList); 
   }
  
@@ -49,7 +49,7 @@ public class MyCustomAdapter extends ArrayAdapter<Contact> {
     holder.name.setOnClickListener( new View.OnClickListener() { 
      public void onClick(View v) { 
       CheckBox cb = (CheckBox) v ; 
-      Contact country = (Contact) cb.getTag(); 
+      Tag country = (Tag) cb.getTag(); 
       /*Toast.makeText(activity.getApplicationContext(),
        "Clicked on Checkbox: " + cb.getText() +
        " is " + cb.isChecked(),
@@ -64,7 +64,7 @@ public class MyCustomAdapter extends ArrayAdapter<Contact> {
    }
  
    if(countryList.size()>0){
-	   Contact country = countryList.get(position);
+	   Tag country = countryList.get(position);
 	   holder.code.setText(country.getName());
 	   holder.name.setChecked(country.isChecked());
 	   holder.name.setTag(country);

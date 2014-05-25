@@ -2,13 +2,12 @@ package com.meetEverywhere;
 
 import android.widget.Checkable;
 
-public class Contact implements Checkable{
+public class Tag implements Checkable{
 
 	private String name;
-	private String token;
 	private boolean checked=false;
 	
-	public Contact(String name){
+	public Tag(String name){
 		this.name = name;
 	}
 	
@@ -20,13 +19,7 @@ public class Contact implements Checkable{
 		this.name = name;
 	}
 
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
+	
 
 	public boolean isChecked() {
 		return checked;

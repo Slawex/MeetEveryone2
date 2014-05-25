@@ -25,7 +25,7 @@ public class FriendsEdition extends Activity {
 	private DatabaseAdapter myDBAdapter;
 
 	private List<String> contacts = new ArrayList<String>();
-	private List<Contact> fullContacts = new ArrayList<Contact>();
+	private List<Tag> fullContacts = new ArrayList<Tag>();
 	private ArrayAdapter<String> adapter;
 	private int initialSetContactsNum = 0;
 
@@ -61,7 +61,7 @@ public class FriendsEdition extends Activity {
 				String name = dbCursor.getString(myDBAdapter.NAME_COLUMN);
 				String num = dbCursor.getString(myDBAdapter.NUM_COLUMN);
 
-				fullContacts.add(new Contact(name));
+				fullContacts.add(new Tag(name));
 				contacts.add(name + " (" + num + ")");
 			} while (dbCursor.moveToNext());
 		}
@@ -84,7 +84,7 @@ public class FriendsEdition extends Activity {
 								.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
 					String num = findNumber(id, name);
 					// Contact newContact = new Contact(name, num);
-					Contact newContact = new Contact(name);
+					Tag newContact = new Tag(name);
 
 					if (!fullContacts.contains(newContact)) {
 						fullContacts.add(newContact);
@@ -133,7 +133,7 @@ public class FriendsEdition extends Activity {
 		case R.id.save:
 			SparseBooleanArray positions = listView.getCheckedItemPositions();
 			for (int i = 0; i < fullContacts.size(); i++) {
-				Contact c = fullContacts.get(i);
+				Tag c = fullContacts.get(i);
 				/*
 				 * if(positions.get(i)){ if(c.getId() < 0)
 				 * myDBAdapter.insertContact(c.getName(), c.getNumber()); } else
@@ -167,7 +167,7 @@ public class FriendsEdition extends Activity {
 						contacts.remove(i);
 						contacts.add(i, tmpC);
 
-						Contact tmpC2 = fullContacts.get(lastChecked);
+						Tag tmpC2 = fullContacts.get(lastChecked);
 						fullContacts.remove(lastChecked);
 						fullContacts.add(lastChecked, fullContacts.get(i - 1));
 						fullContacts.remove(i);
@@ -210,7 +210,7 @@ public class FriendsEdition extends Activity {
 									.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 					if (Integer.parseInt(hasPhoneNumber) > 0) {
 						String num = findNumber(id, name);
-						Contact newContact = new Contact(name);
+						Tag newContact = new Tag(name);
 						int contactNum = fullContacts.indexOf(newContact);
 						if (contactNum == -1) {
 							contactNum = contacts.size();

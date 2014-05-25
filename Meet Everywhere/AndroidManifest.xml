@@ -27,8 +27,9 @@
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="15" />
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -37,35 +38,26 @@
         <activity
             android:name="com.meetEverywhere.MeetEverywhere"
             android:label="@string/title_activity_meet_everywhere" >
-
-           
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> 
-          
+            </intent-filter>
         </activity>
 
         <service android:name="com.meetEverywhere.PositionTracker" />
+        <service android:name="com.meetEverywhere.bluetooth.BluetoothService" />
 
-		<service android:name="com.meetEverywhere.bluetooth.BluetoothService" />
-        
-        
-        
         <activity android:name="com.meetEverywhere.FriendsEdition" >
         </activity>
         <activity android:name="com.meetEverywhere.InitialSettings" >
         </activity>
         <activity android:name="com.meetEverywhere.ProfileEdition" >
         </activity>
-        
         <activity android:name="com.meetEverywhere.bluetooth.BluetoothChooseDeviceActivity" >
         </activity>
         <activity android:name="com.meetEverywhere.bluetooth.BluetoothChat" >
         </activity>
-        
-        
         <activity
             android:name="com.meetEverywhere.TagsEdition"
             android:windowSoftInputMode="adjustPan" >
@@ -92,7 +84,8 @@
             android:name="com.meetEverywhere.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-            <!-- 
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -103,6 +96,10 @@
         <activity
             android:name="com.meetEverywhere.RegistrationActivity"
             android:label="@string/title_activity_registration" >
+        </activity>
+        <activity
+            android:name="com.meetEverywhere.FoundTagsActivity"
+            android:label="@string/title_activity_found_tags" >
         </activity>
     </application>
 
